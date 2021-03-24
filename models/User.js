@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcryptjs = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -29,6 +30,12 @@ const UserSchema = new mongoose.Schema({
           type: Date,
           default: Date.now
       }
+});
+
+// Encrypt pass with bvryptjs
+UserSchema.pre('save', async function(next) {
+  const salt = await bcryptjs.genSalt(10);
+  this.password = await bcryptjs.hash(this.password, salt);
 });
 
 module.exports = mongoose.model('User', UserSchema);
