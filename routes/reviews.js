@@ -2,7 +2,9 @@ const express = require('express');
 const {
     getReviews,
     getReview,
-    addReview
+    addReview,
+    updateReview,
+    deleteReview
 } = require('../controllers/reviews');
 
 const Review = require('../models/Review');
@@ -18,6 +20,8 @@ router.route('/')
     .post(protect, authorize('user', 'admin'), addReview);
 
 router.route('/:id')
-    .get(getReview);
+    .get(getReview)
+    .put(protect, authorize('admin', 'user'), updateReview)
+    .delete(protect, authorize('admin', 'user'), deleteReview);
 
 module.exports = router;
