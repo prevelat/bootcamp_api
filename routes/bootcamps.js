@@ -9,15 +9,15 @@ const {
     bootcampPhotoUpload
 } = require('../controllers/bootcamps');
 
-// Middleware req
 const Bootcamp = require('../models/Bootcamps');
-const advancedResults = require('../middleware/advancedResults');
 
 // Include other resources router
 const courseRouter = require('./courses');
 
 const router = express.Router();
 
+// Middleware req
+const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');
 
 // Re-route into other resources routers
